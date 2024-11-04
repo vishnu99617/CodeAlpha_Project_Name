@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Destination {
+    String name;
+    String date;
+    String preference;
+    double budget;
+    String weather; // Hypothetical weather information
+
+    Destination(String name, String date, String preference, double budget, String weather) {
+        this.name = name;
+        this.date = date;
+        this.preference = preference;
+        this.budget = budget;
+        this.weather = weather;
+    }
+
+    @Override
+    public String toString() {
+        return "Destination: " + name + "\n" +
+               "Date: " + date + "\n" +
+               "Preference: " + preference + "\n" +
+               "Budget: $" + budget + "\n" +
+               "Weather: " + weather + "\n";
+    }
+}
+
+public class TravelItineraryPlanner {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Destination> itinerary = new ArrayList<>();
+        double totalBudget = 0;
+        boolean addMore = true;
+
+        while (addMore) {
+            System.out.print("Enter destination: ");
+            String name = scanner.nextLine();
+            
+            System.out.print("Enter travel date (MM/DD/YYYY): ");
+            String date = scanner.nextLine();
+
+            System.out.print("Enter your preference (e.g., sightseeing, adventure, relaxation): ");
+            String preference = scanner.nextLine();
+
+            System.out.print("Enter budget for this trip: ");
+            double budget = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
+            // Generate hypothetical weather information
+            String[] weatherOptions = {"Sunny", "Rainy", "Cloudy", "Windy"};
+            String weather = weatherOptions[(int) (Math.random() * weatherOptions.length)];
+
+            // Create a new destination entry
+            Destination dest = new Destination(name, date, preference, budget, weather);
+            itinerary.add(dest);
+            totalBudget += budget;
+
+            // Ask if the user wants to add more destinations
+            System.out.print("Add another destination? (yes/no): ");
+            addMore = scanner.nextLine().equalsIgnoreCase("yes");
+        }
+
+        // Display the full itinerary
+        System.out.println("\nYour Travel Itinerary:");
+        for (Destination dest : itinerary) {
+            System.out.println(dest);
+            System.out.println("--------------------------------------------------");
+        }
+        System.out.println("Total Budget for the Trip: $" + totalBudget);
+    }
+}
